@@ -1,0 +1,22 @@
+{
+    "anthropic": {
+        "priority": 1,
+        "rpm": 5,
+        "rpd": 100
+    },
+    "openai": {
+        "priority": 2,
+        "rpm": 3,
+        "rpd": 50
+    },
+    "gemini": {
+        "priority": 3,
+        "rpm": 15,
+        "rpd": 1500
+    },
+    "openrouter": {
+        "priority": 4,
+        "rpm": 10,
+        "rpd": 1000
+    }
+}

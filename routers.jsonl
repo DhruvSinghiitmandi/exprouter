@@ -1,0 +1,14 @@
+{"timestamp": "2026-04-19T19:36:14.493681", "provider": "openai", "error": "500 Internal Server Error", "type": "error"}
+{"timestamp": "2026-04-19T19:36:14.494896", "prompt_hash": "62c6a73cd32b2603", "provider": "anthropic", "model": "claude-3-5-sonnet", "cost": 0.00010499999999999999, "tokens_in": 10, "tokens_out": 5, "response": "Success"}
+{"timestamp": "2026-04-19T19:36:14.495703", "prompt_hash": "22bfee28fe497baa", "provider": "openai", "model": "gpt-4o", "cost": 7.500000000000001e-05, "tokens_in": 10, "tokens_out": 5, "response": "OpenAI Response"}
+{"timestamp": "2026-04-19T19:36:14.495809", "prompt_hash": "29002e84e65c0bc5", "provider": "openai", "model": "gpt-4o", "cost": 7.500000000000001e-05, "tokens_in": 10, "tokens_out": 5, "response": "OpenAI Response"}
+{"timestamp": "2026-04-19T19:36:14.496891", "prompt_hash": "62c6a73cd32b2603", "provider": "anthropic", "model": "claude-3-5-sonnet", "cost": 0.00020999999999999998, "tokens_in": 20, "tokens_out": 10, "response": "Reason: test, Choice: A"}
+{"timestamp": "2026-04-19T19:36:33.657647", "provider": "openai", "error": "500 Internal Server Error", "type": "error"}
+{"timestamp": "2026-04-19T19:36:33.658929", "prompt_hash": "62c6a73cd32b2603", "provider": "anthropic", "model": "claude-3-5-sonnet", "cost": 0.00010499999999999999, "tokens_in": 10, "tokens_out": 5, "response": "Success"}
+{"timestamp": "2026-04-19T19:36:33.661433", "prompt_hash": "62c6a73cd32b2603", "provider": "anthropic", "model": "claude-3-5-sonnet", "cost": 0.00020999999999999998, "tokens_in": 20, "tokens_out": 10, "response": "Reason: test, Choice: A"}
+{"timestamp": "2026-04-19T19:36:53.812679", "provider": "openai", "error": "500 Internal Server Error", "type": "error"}
+{"timestamp": "2026-04-19T19:36:53.813912", "prompt_hash": "62c6a73cd32b2603", "provider": "anthropic", "model": "claude-3-5-sonnet", "cost": 0.00010499999999999999, "tokens_in": 10, "tokens_out": 5, "response": "Success"}
+{"timestamp": "2026-04-19T19:36:53.814960", "prompt_hash": "22bfee28fe497baa", "provider": "anthropic", "model": "test-model", "cost": 0.0, "tokens_in": 10, "tokens_out": 5, "response": "Anthropic Response"}
+{"timestamp": "2026-04-19T19:36:53.815120", "prompt_hash": "29002e84e65c0bc5", "provider": "anthropic", "model": "test-model", "cost": 0.0, "tokens_in": 10, "tokens_out": 5, "response": "Anthropic Response"}
+{"timestamp": "2026-04-19T19:36:53.815266", "prompt_hash": "279bcb7b88e55005", "provider": "openai", "model": "test-model", "cost": 0.0, "tokens_in": 10, "tokens_out": 5, "response": "OpenAI Response"}
+{"timestamp": "2026-04-19T19:36:53.816278", "prompt_hash": "62c6a73cd32b2603", "provider": "anthropic", "model": "claude-3-5-sonnet", "cost": 0.00020999999999999998, "tokens_in": 20, "tokens_out": 10, "response": "Reason: test, Choice: A"}

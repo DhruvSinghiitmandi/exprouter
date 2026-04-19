@@ -24,14 +24,18 @@ def call(model_id, messages, system, temperature, max_tokens, seed):
     if "reasoning" in model_id.lower() or "thinking" in model_id.lower():
         extra_body["enable_thinking"] = True
 
-    response = client.chat.completions.create(
-        model=model_id,
-        messages=full_messages,
-        temperature=temperature,
-        max_tokens=max_tokens,
-        seed=seed,
-        extra_body=extra_body if extra_body else None
-    )
+    kwargs = {
+        "model": model_id,
+        "messages": full_messages,
+        "temperature": temperature,
+        "max_tokens": max_tokens,
+    }
+    if extra_body:
+        kwargs["extra_body"] = extra_body
+    if seed is not None:
+        kwargs["seed"] = seed
+
+    response = client.chat.completions.create(**kwargs)
     
     text = response.choices[0].message.content
     in_tok = response.usage.prompt_tokens

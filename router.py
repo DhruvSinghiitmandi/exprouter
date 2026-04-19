@@ -51,6 +51,9 @@ class Router:
 
     def _check_rate_limit(self, provider_name):
         """Checks if a provider is within its RPM and RPD limits."""
+        if provider_name not in self._counts:
+            return False
+            
         self._maybe_reset(provider_name)
         counts = self._counts[provider_name]
         
@@ -187,5 +190,8 @@ class Router:
         return missing
 
     def spend_report(self):
-        """Returns the total spend accumulated in this session."""
-        return self._total_spend
+        """Returns the total spend accumulated in this session and by provider."""
+        return {
+            "total_spend": self._total_spend,
+            "counts": self._counts
+        }

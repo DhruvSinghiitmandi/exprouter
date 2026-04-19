@@ -51,12 +51,12 @@ def log_show(path):
             try:
                 data = json.loads(line)
                 if data.get("type") == "error":
-                    ts = data.get('timestamp', 'N/A')
+                    ts = data.get('ts', 'N/A')
                     provider = data.get('provider', 'N/A')
                     error = data.get('error', 'Unknown Error')
                     click.echo(f"{ts} | ERROR | {provider} | {error}")
                 else:
-                    ts = data.get("timestamp", "")
+                    ts = data.get("ts", "")
                     provider = data.get("provider", "")
                     model = data.get("model", "")
                     cost = data.get("cost", 0.0)

@@ -3,12 +3,16 @@ import hashlib
 import importlib
 from datetime import datetime, timedelta
 from .config import PROVIDER_MODELS, COST_PER_1K, load_router_config
-from .providers import anthropic, openai, gemini, openrouter # Pre-import for easy access if needed, or use dynamic
 
 class ProviderExhaustedError(Exception):
     pass
 
 class MalformedResponseError(Exception):
+    def __init__(self, message, raw_response=None):
+        super().__init__(message)
+        self.raw_response = raw_response
+
+class BudgetExceededError(Exception):
     pass
 
 class Router:
@@ -87,7 +91,7 @@ class Router:
         Main routing function. Handles retries, logging, and schema enforcement.
         """
         if self.budget is not None and self._total_spend >= self.budget:
-            raise Exception(f"Budget exceeded. Current spend: ${self._total_spend:.4f}, Budget: ${self.budget:.4f}")
+            raise BudgetExceededError(f"Budget exceeded. Current spend: ${self._total_spend:.4f}, Budget: ${self.budget:.4f}")
 
         excluded = set()
         while True:
@@ -132,7 +136,7 @@ class Router:
                         # Check again
                         missing = self._enforce_schema(text, required_fields)
                         if missing:
-                            raise MalformedResponseError(f"Second attempt failed to include fields: {missing}")
+                            raise MalformedResponseError(f"Second attempt failed to include fields: {missing}", text)
 
                 # Update state
                 self._counts[provider_name]["rpm"] += 1
@@ -148,13 +152,13 @@ class Router:
                 prompt_hash = hashlib.sha256(json.dumps(prompt_content, sort_keys=True).encode()).hexdigest()[:16]
                 
                 log_entry = {
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "ts": datetime.utcnow().isoformat(),
                     "prompt_hash": prompt_hash,
                     "provider": provider_name,
                     "model": model,
                     "cost": cost,
-                    "tokens_in": in_tok,
-                    "tokens_out": out_tok,
+                    "input_tokens": in_tok,
+                    "output_tokens": out_tok,
                     "response": text
                 }
                 self._log(log_entry)
@@ -167,7 +171,7 @@ class Router:
             except Exception as e:
                 # Log error and fallback
                 self._log({
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "ts": datetime.utcnow().isoformat(),
                     "provider": provider_name,
                     "error": str(e),
                     "type": "error"

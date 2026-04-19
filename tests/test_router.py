@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock
 import os
 import json
-from exprouter.router import Router, ProviderExhaustedError, MalformedResponseError
+from exprouter.router import Router, ProviderExhaustedError, MalformedResponseError, BudgetExceededError
 
 class TestRouter(unittest.TestCase):
     def setUp(self):
@@ -88,7 +88,7 @@ class TestRouter(unittest.TestCase):
         # The budget check is BEFORE the call.
         # Let's set budget to 0.0 to trigger it.
         router.budget = 0.0
-        with self.assertRaises(Exception) as cm:
+        with self.assertRaises(BudgetExceededError) as cm:
             router.complete("claude-3-5-sonnet", [{"role": "user", "content": "hi"}])
         self.assertIn("Budget exceeded", str(cm.exception))
 

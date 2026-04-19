@@ -5,7 +5,10 @@ import os
 PROVIDER_MODELS = {
     "claude-3-5-sonnet": {"anthropic": "claude-3-5-sonnet-20241022"},
     "gpt-4o":            {"openai": "gpt-4o-2024-11-20", "openrouter": "openai/gpt-4o"},
-    "deepseek-r1":       {"openrouter": "deepseek/deepseek-r1"},
+    "deepseek-r1":       {"deepseek": "deepseek-reasoner", "openrouter": "deepseek/deepseek-r1"},
+    "deepseek-chat":     {"deepseek": "deepseek-chat", "openrouter": "deepseek/deepseek-chat"},
+    "qwen-2.5-72b":      {"openrouter": "qwen/qwen-2.5-72b-instruct", "dashscope": "qwen2.5-72b-instruct"},
+    "qwen-2.5-coder":    {"openrouter": "qwen/qwen2.5-coder-32b-instruct", "dashscope": "qwen2.5-coder-32b-instruct"},
     "gemini-pro":        {"gemini": "gemini-1.5-pro"},
 }
 
@@ -13,12 +16,20 @@ PROVIDER_MODELS = {
 COST_PER_1K = {
     "claude-3-5-sonnet": (0.003, 0.015),
     "gpt-4o":            (0.0025, 0.010),
-    "deepseek-r1":       (0.0001, 0.0002),
+    "deepseek-r1":       (0.00055, 0.00219),
+    "deepseek-chat":     (0.00027, 0.00110),
+    "qwen-2.5-72b":      (0.0001, 0.0002),
+    "qwen-2.5-coder":    (0.0001, 0.0002),
     "gemini-pro":        (0.00125, 0.00375),
 }
 
 def load_router_config(config_path="router_config.json"):
-    """Loads router configuration and returns a list of provider settings sorted by priority."""
+    """
+    Loads router configuration and returns a list of provider settings sorted by priority.
+    Note: The specification shows a list-of-dicts `{"providers": [{"name": ...}]}`, 
+    but we use a simpler dict-of-dicts format internally. This function handles 
+    the conversion to a priority sorted list-of-dicts.
+    """
     if not os.path.exists(config_path):
         return []
         
